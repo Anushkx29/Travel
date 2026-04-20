@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Privacy Policy</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/info.css') }}">
+</head>
+
+<body>
+
+<section class="privacy-wrapper">
+
+  <div class="privacy-card">
+
+    <!-- LEFT: Main Content -->
+    <div class="privacy-main">
+      <h1>Privacy Policy</h1>
+      <p class="privacy-meta"></p>
+
+      <div class="privacy-body">
+
+        <p class="privacy-intro">
+          Your privacy is important to us. We respect your personal information and are committed
+          to protecting any data shared on our website.
+        </p>
+
+        <h2>Information We Collect</h2>
+        <p>
+          We only collect information if we have a reason to — to provide our services,
+          communicate with you, or improve your experience.
+        </p>
+        <ul>
+          <li>
+            <strong>Personal Information:</strong> We may collect basic details such as your
+            name and email address that you provide to us when using our services.
+          </li>
+          <li>
+            <strong>Usage Data:</strong> We collect information about your browsing activity,
+            such as pages you visit and links you click, to improve user experience and deliver
+            better services.
+          </li>
+        </ul>
+
+        <h2>How We Use Information</h2>
+<ul>
+  <li>
+    Provide, operate, and maintain our website. Improve, personalize, and expand our website. Understand and analyze how you use our website.
+  </li>
+
+  <li>
+    Develop new products, services, features, and functionality. Communicate with you, including for customer service, updates, and marketing purposes.
+  </li>
+</ul>
+
+        <h2>Data Security</h2>
+        <p>
+          Your information will never be sold or misused. We use secure methods to keep your
+          data safe and ensure your trust in us is well placed.
+        </p>
+
+        <h2>Your Agreement</h2>
+        <p>
+          By using this website, you agree to our privacy practices. If you have any concerns
+          about how we handle your data, feel free to contact us at any time.
+        </p>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: IMAGE -->
+    <div class="privacy-image">
+      <img src="{{ url_for('static', filename='images/privacy.jpg') }}" alt="Privacy Illustration">
+    </div>
+
+  </div>
+
+</section>
+
+</body>
+</html>

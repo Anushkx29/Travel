@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Browse Stays</title>
+
+<!-- Bootstrap FIRST -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- YOUR CSS LAST -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/info.css') }}">
+</head>
+
+<body>
+
+<!-- HERO SECTION -->
+<section class="hotel-hero">
+<div class="hero-overlay">
+
+<div class="search-container">
+
+<form action="{{ url_for('browse_stays') }}" method="GET">
+
+<div class="search-grid">
+
+    <!-- City -->
+    <div class="search-item city-box">
+        <label for="city">City, Property Name Or Location</label>
+        <input id="city" type="text" name="city" value="{{ city }}" placeholder="Type">
+    </div>
+
+    <!-- Checkin -->
+    <div class="search-item">
+        <label for="checkin">Check-In <span class="top-arrow">▼</span></label>
+        <input id="checkin" type="date" name="checkin">
+    </div>
+
+    <!-- Checkout -->
+    <div class="search-item">
+        <label for="checkout">Check-Out <span class="top-arrow">▼</span></label>
+        <input id="checkout" type="date" name="checkout">
+    </div>
+
+    <!-- Rooms & Guests -->
+    <div class="search-item">
+        <label>Rooms & Guests</label>
+
+        <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle w-100 text-start"
+                    type="button"
+                    data-bs-toggle="dropdown">
+                <span id="guestSummary">1 Room 2 Adults</span>
+            </button>
+
+            <div class="dropdown-menu p-3" style="width:260px;" onclick="event.stopPropagation();">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Room</span>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="change('room', -1)">-</button>
+                        <span id="room">1</span>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="change('room', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Adults</span>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="change('adult', -1)">-</button>
+                        <span id="adult">2</span>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="change('adult', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Children</span>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="change('child', -1)">-</button>
+                        <span id="child">0</span>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="change('child', 1)">+</button>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary w-100" onclick="applyGuests()">Apply</button>
+            </div>
+
+            <input type="hidden" name="guest" id="guestInput" value="1 Room 2 Adults">
+        </div>
+    </div>
+
+    <!-- PRICE -->
+    <div class="search-item">
+        <label>Price</label>
+
+        <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle w-100 text-start"
+                    type="button"
+                    data-bs-toggle="dropdown">
+                <span id="priceSummary">
+                    {{ price if price else "₹0 - ₹1500" }}
+                </span>
+            </button>
+
+            <div class="dropdown-menu w-100">
+                <button class="dropdown-item" type="button" onclick="selectPrice('₹0 - ₹1500')">₹0 - ₹1500</button>
+                <button class="dropdown-item" type="button" onclick="selectPrice('₹1500 - ₹3000')">₹1500 - ₹3000</button>
+                <button class="dropdown-item" type="button" onclick="selectPrice('₹3000 - ₹5000')">₹3000 - ₹5000</button>
+                <button class="dropdown-item" type="button" onclick="selectPrice('₹5000+')">₹5000+</button>
+            </div>
+
+            <input type="hidden" name="price" id="priceInput"
+                   value="{{ price if price else '₹0 - ₹1500' }}">
+        </div>
+    </div>
+
+</div>
+
+<!-- SEARCH BUTTON -->
+<div class="search-btn-area">
+    <button type="submit" class="search-btn">SEARCH</button>
+</div>
+
+</form>
+</div>
+</div>
+</section>
+
+<!-- RESULTS -->
+{% if city and hotels|length > 0 %}
+
+<section class="results-section">
+
+<h2>Showing {{ hotels|length }} hotels in {{ city }}</h2>
+
+{% for hotel in hotels %}
+
+<div class="hotel-result-card">
+
+    <!-- IMAGE -->
+    <div class="hotel-image">
+        <img src="{{ url_for('static', filename=hotel.image) }}">
+    </div>
+
+    <!-- DETAILS -->
+    <div class="hotel-details">
+
+        <div class="hotel-title">
+
+            <h3 class="hotel-name">{{ hotel.name }}</h3>
+
+            <span class="stars">
+            {% if hotel.rating != "NA" %}
+                {% set star = hotel.rating|float|round|int %}
+            {% else %}
+                {% set star = 0 %}
+            {% endif %}
+
+            {% for i in range(star) %}
+                <span class="filled">★</span>
+            {% endfor %}
+
+            {% for i in range(5-star) %}
+                <span class="empty">★</span>
+            {% endfor %}
+            </span>
+
+        </div>
+
+        <p class="location">
+{{ hotel.location }}{% if hotel.distance %} | {{ hotel.distance }}{% endif %}
+</p>
+
+        {% if hotel.nearest_landmark and hotel.nearest_landmark != 'nan' %}
+        <p class="landmark">
+        Near {{ hotel.nearest_landmark }}
+        </p>
+        {% endif %}
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="hotel-right">
+
+        <div class="rating-row">
+
+            <span class="rating-desc">
+                {{ hotel.rating_description }}
+            </span>
+
+            <span class="rating-box">
+                {{ hotel.rating if hotel.rating != "NA" else "-" }}
+            </span>
+
+        </div>
+
+        <p class="reviews">
+        {% if hotel.reviews > 0 %}
+            {{ hotel.reviews }} reviews
+        {% else %}
+            No reviews
+        {% endif %}
+        </p>
+
+        <div class="hotel-price">
+            <h2>₹{{ hotel.price }}</h2>
+            <p>Per Night</p>
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</section>
+
+{% elif city and hotels|length == 0 %}
+
+<div style="text-align:center; margin-top:50px;">
+<h2>No hotels found in this price range 😕</h2>
+</div>
+
+{% endif %}
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+let room = 1;
+let adult = 2;
+let child = 0;
+
+function change(type, val){
+    if(type === "room"){
+        room = Math.max(1, room + val);
+        document.getElementById("room").innerText = room;
+    }
+    if(type === "adult"){
+        adult = Math.max(1, adult + val);
+        document.getElementById("adult").innerText = adult;
+    }
+    if(type === "child"){
+        child = Math.max(0, child + val);
+        document.getElementById("child").innerText = child;
+    }
+}
+
+function applyGuests(){
+    let text = room + " Room " + adult + " Adults";
+    if(child > 0){
+        text += " " + child + " Children";
+    }
+    document.getElementById("guestSummary").innerText = text;
+    document.getElementById("guestInput").value = text;
+}
+
+function selectPrice(value){
+    document.getElementById("priceSummary").innerText = value;
+    document.getElementById("priceInput").value = value;
+}
+</script>
+
+</body>
+</html>
