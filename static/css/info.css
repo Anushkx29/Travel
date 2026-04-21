@@ -682,3 +682,80 @@ body{
 }
 
 }
+ 
+
+/* WISHLIST CSS */
+
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+    background:url("../images/wishlist_bg.jpg");
+    background-size: cover;
+}
+
+.wishlist-header{
+    background:none;
+    color:whitesmoke;
+    text-align:center;
+    padding:22px;
+    font-size:32px;
+    font-weight:bold;
+}
+
+/* FIX CARD SIZE */
+.wishlist-container{
+    width:90%;
+    margin:auto;
+    padding:40px 0;
+
+    display:grid;
+
+    /* 3 cards per row */
+    grid-template-columns:repeat(auto-fit, minmax(320px, 360px));
+
+    gap:25px;
+
+    /* important */
+    justify-content:start;
+}
+
+.wish-card{
+    background:white;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    width:100%;
+}
+
+.wish-card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+
+.wish-content{
+    padding:18px;
+}
+
+.wish-content h3{
+    margin:0 0 12px;
+    font-size:22px;
+}
+
+.wish-content button{
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.empty-box{
+    grid-column:1/-1;
+    text-align:center;
+    font-size:28px;
+    color:#777;
+    padding:80px;
+}

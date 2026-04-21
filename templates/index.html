@@ -12,6 +12,7 @@
 
   <!-- font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <!-- External css -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -71,6 +72,11 @@
 
         </ul>
       </div>
+           
+          <!-- Wishlist Icon -->
+           <a href="{{ url_for('wishlist') }}" class="wishlist-icon">
+    <i class="fa-regular fa-heart"></i>
+</a>
 
           <div class="d-flex book_btn"> 
         <a href="./login.html" class=""><i class="ri-user-3-line"></i> User</a> 
@@ -194,9 +200,14 @@
                 <div class="cards-text">
                   <h2>Taj Mahal</h2>
                   <p class="icon-links">
-                    <a href="#"><i class="ri-heart-3-line"></i></a>
-                    <a href="#"><i class="ri-eye-line"></i></a>
-                  </p>
+                    <a href="javascript:void(0);"
+                    class="wish-btn"
+   data-name="Taj Mahal"
+   data-image="{{ url_for('static', filename='images/taj-mahal.webp') }}"
+   onclick="addToWishlist(this)">
+   <i class="ri-heart-3-line"></i>
+</a>
+</p>
                   <p class="description">The Taj Mahal, one of the Seven Wonders of the World, is a world-famous monument of love in Agra, admired for its stunning white marble architecture and historical significance.
 </p>
                 </div>
@@ -208,8 +219,13 @@
                 <div class="cards-text">
                   <h2>Shimla</h2>
                   <p class="icon-links">
-                    <a href="#"><i class="ri-heart-3-line"></i></a>
-                    <a href="#"><i class="ri-eye-line"></i></a>
+                     <a href="javascript:void(0);"
+                     class="wish-btn"
+   data-name="Shimla"
+   data-image="{{ url_for('static', filename='images/Shimla.webp.jpg') }}"
+   onclick="addToWishlist(this)">
+   <i class="ri-heart-3-line"></i>
+</a>
                   </p>
                   <p class="description">Shimla is a popular hill station known for its cool climate, scenic landscapes, and colonial charm, making it a perfect getaway in the mountains.
 </p>
@@ -222,8 +238,13 @@
                 <div class="cards-text">
                   <h2>Goa</h2>
                   <p class="icon-links">
-                    <a href="#"><i class="ri-heart-3-line"></i></a>
-                    <a href="#"><i class="ri-eye-line"></i></a>
+                    <a href="javascript:void(0);"
+                    class="wish-btn"
+   data-name="Goa"
+   data-image="{{ url_for('static', filename='images/goa.webp.jpg') }}"
+   onclick="addToWishlist(this)">
+   <i class="ri-heart-3-line"></i>
+                  </a>
                   </p>
                   <p class="description">Goa is a vibrant coastal destination known for its beautiful beaches, lively atmosphere, and rich Portuguese heritage, offering a perfect blend of relaxation and culture.
 </p>
@@ -236,9 +257,14 @@
                 <div class="cards-text">
                   <h2>Leh Ladakh</h2>
                   <p class="icon-links">
-                    <a href="#"><i class="ri-heart-3-line"></i></a>
-                    <a href="#"><i class="ri-eye-line"></i></a>
-                  </p>
+                    <a href="javascript:void(0);"
+                    class="wish-btn"
+   data-name="Leh Ladakh"
+   data-image="{{ url_for('static', filename='images/leh-ladakh.webp.jpg') }}"
+   onclick="addToWishlist(this)">
+   <i class="ri-heart-3-line"></i>
+</a>
+</p>
                   <p class="description">Leh Ladakh is a breathtaking destination known for its rugged mountains, serene monasteries, and stunning landscapes, offering a unique blend of adventure and tranquility.
 </p>
                 </div>
@@ -250,8 +276,13 @@
                 <div class="cards-text">
                   <h2>Hyderabad</h2>
                   <p class="icon-links">
-                    <a href="#"><i class="ri-heart-3-line"></i></a>
-                    <a href="#"><i class="ri-eye-line"></i></a>
+                    <a href="javascript:void(0);"
+                    class="wish-btn"
+   data-name="Hyderabad"
+   data-image="{{ url_for('static', filename='images/Hyderabad.webp.jpg') }}"
+   onclick="addToWishlist(this)">
+   <i class="ri-heart-3-line"></i>
+</a>
                   </p>
                   <p class="description">Hyderabad is a vibrant city known for its rich history, iconic landmarks, delicious cuisine and India’s major IT hubs, blending tradition with modern urban life.</p>
                 </div>
@@ -263,8 +294,13 @@
                 <div class="cards-text">
                   <h2>Noida</h2>
                   <p class="icon-links">
-                    <a href="#"><i class="ri-heart-3-line"></i></a>
-                    <a href="#"><i class="ri-eye-line"></i></a>
+                    <a href="javascript:void(0);"
+                    class="wish-btn"
+   data-name="Noida"
+   data-image="{{ url_for('static', filename='images/Noida.webp.jpg') }}"
+   onclick="addToWishlist(this)">
+   <i class="ri-heart-3-line"></i>
+</a>
                   </p>
                   <p class="description">Noida is a rapidly developing city known for its modern infrastructure, IT hubs, and urban lifestyle.
 </p>
@@ -407,6 +443,71 @@
 
   <!-- external javascript -->
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+function toggleHeart(e){
+    e.preventDefault();
+
+    const heart = document.getElementById("wishHeart");
+
+    if(heart.classList.contains("fa-regular")){
+
+        heart.classList.remove("fa-regular");
+        heart.classList.add("fa-solid");   /* filled heart */
+        heart.style.color = "#22c55e";
+
+    }else{
+
+        heart.classList.remove("fa-solid");
+        heart.classList.add("fa-regular"); /* outline heart */
+        heart.style.color = "#22c55e";
+    }
+}
+</script>
+
+<script>
+function addToWishlist(el){
+
+    let name = el.dataset.name;
+    let image = el.dataset.image;
+
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    let exists = wishlist.find(item => item.name === name);
+
+    if(!exists){
+        wishlist.push({name,image});
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    }
+
+    updateHeart(el, true);
+}
+
+function updateHeart(el, active){
+    if(active){
+        el.innerHTML = '<i class="ri-heart-fill" style="color:#22c55e;"></i>';
+    }else{
+        el.innerHTML = '<i class="ri-heart-3-line"></i>';
+    }
+}
+
+function loadWishlistHearts(){
+
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    document.querySelectorAll(".wish-btn").forEach(el => {
+
+        let name = el.dataset.name;
+
+        let exists = wishlist.find(item => item.name === name);
+
+        updateHeart(el, !!exists);
+    });
+}
+
+window.onload = loadWishlistHearts;
+</script>
+
 </body>
 
 </html>  

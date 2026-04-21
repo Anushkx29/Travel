@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wishlist</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/info.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<div class="wishlist-header">
+    <i class="fa-solid fa-heart"></i> My Wishlist
+</div>
+
+<div id="wishlistArea" class="wishlist-container"></div>
+
+<script>
+
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+function loadWishlist(){
+
+    const area = document.getElementById("wishlistArea");
+
+    if(wishlist.length === 0){
+        area.innerHTML = `<div class="empty-box">No places in wishlist 💔</div>`;
+        return;
+    }
+
+    area.innerHTML = "";
+
+    wishlist.forEach((item,index)=>{
+
+        area.innerHTML += `
+        <div class="wish-card">
+            <img src="${item.image}">
+            <div class="wish-content">
+                <h3>${item.name}</h3>
+                <button onclick="removeItem(${index})">Remove</button>
+            </div>
+        </div>
+        `;
+    });
+}
+
+function removeItem(index){
+    wishlist.splice(index,1);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    loadWishlist();
+}
+
+loadWishlist();
+
+</script>
+
+</body>
+</html>

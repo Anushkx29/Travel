@@ -99,6 +99,53 @@ body {
 
 }
 
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+/* Heart only */
+.wishlist-icon{
+    width:48px;
+    height:48px;
+    border:none;
+    background:transparent;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:22px;
+    transition:0.3s ease;
+}
+
+.wishlist-icon i{
+    color:#22c55e;   /* green outline */
+    transition:0.3s ease;
+}
+
+.wishlist-icon:hover{
+    transform:scale(1.08);
+    background:transparent;
+}
+
+/* User button */
+.user-btn{
+    background:#22c55e;
+    color:#fff;
+    padding:12px 22px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.user-btn:hover{
+    background:#16a34a;
+}
+
 @media only screen and (max-width: 600px) {
     .navbar-brand {
         font-size: 1.2rem;
