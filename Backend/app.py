@@ -33,6 +33,10 @@ except Exception as e:
 def home():
     return render_template('index.html')
 
+@app.route('/wishlist')
+def wishlist():
+    return render_template('wishlist.html')
+
 
 # ---------- DESTINATIONS ---------- #
 @app.route('/destinations')
