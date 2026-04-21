@@ -1,11 +1,10 @@
 # Travel-Tourism
 This web application allows users to explore destinations, view detailed tour information, discover nearby stays, and plan their perfect trip—all in one place.
 
-📥 Dataset & Images
-
 Due to size limitations, dataset and images are not included in this repository.
 
-👉 Download from here:  
+👉 Download from here: 
+📥 Dataset & Images:- 
 
 Dataset: https://drive.google.com/file/d/1Z8zFXOIxjf9Ws5t7IJqqIUw4vOyEfTow/view?usp=sharing
 
