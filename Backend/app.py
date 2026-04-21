@@ -98,8 +98,6 @@ def submit_review():
 
 # ---------- BROWSE STAYS ---------- #
 
-# ---------- BROWSE STAYS ---------- #
-
 # ---------------- HELPER FUNCTION ---------------- #
 def get_rating_desc(rating):
     try:
@@ -298,6 +296,204 @@ def browse_stays():
     except Exception as e:
         return f"ERROR: {str(e)}"
     
+
+
+    # ---------- BROWSE BUSES ---------- #
+
+@app.route('/browse_buses', methods=['GET']) 
+def browse_buses():
+
+    source = request.args.get('from', '').strip().lower()
+    destination = request.args.get('to', '').strip().lower()
+
+    buses = []
+
+    if source == "" or destination == "":
+        return render_template(
+            "browse_buses.html",
+            buses=[],
+            source="",
+            destination=""
+        )
+
+    try:
+        # =========================
+        # LOAD DATA
+        # =========================
+        df = pd.read_csv(
+            r"C:\Users\verma\Travel&Tourism\dataset\merged_dataset.csv",
+            low_memory=False
+        )
+
+        # =========================
+        # CLEAN DATA
+        # =========================
+        df["From"] = df["From"].astype(str).str.lower().str.strip()
+        df["To"] = df["To"].astype(str).str.lower().str.strip()
+
+        # =========================
+        # FILTER BUSES
+        # =========================
+        filtered = df[
+            (df["From"].str.contains(source)) &
+            (df["To"].str.contains(destination))
+        ].copy()
+
+        print("After filter:", len(filtered))
+
+        # =========================
+        # FORMAT DATA
+        # =========================
+        images = [
+            "images/bus_default.jpg",
+            "images/bus_default1.jpg",
+            "images/bus_default2.jpg",
+            "images/bus_default3.jpg"
+]
+
+        for _, row in filtered.iterrows():
+
+            # Distance → base
+            if pd.notna(row["Distance"]):
+                try:
+                   base = int(float(row["Distance"]))
+                except:
+                   base = 100
+            else:
+                base = 100
+
+            # Price calculation
+            price = int(base * 2 + random.randint(100, 500))
+
+            buses.append({
+                "operator": row.get("Operator", "Unknown"),
+                "from": row.get("From", ""),
+                "to": row.get("To", ""),
+                "distance": str(row["Distance"]) + " km" if pd.notna(row["Distance"]) else "N/A",
+                "bus_type": row.get("Bus Type", "Standard"),
+                "departure": row.get("Departure", "N/A"),
+                "arrival": row.get("Arrival", "N/A"),
+                "price": price,
+                "image": random.choice(images)
+            })
+
+        return render_template(
+            "browse_buses.html",
+            buses=buses,
+            source=source.title(),
+            destination=destination.title()
+        )
+
+    except Exception as e:
+        return f"ERROR: {str(e)}"
+
+# ---------- BROWSE TRAINS ---------- #
+
+import ast
+import random
+
+@app.route('/browse_trains', methods=['GET'])
+def browse_trains():
+
+    from_city = request.args.get('from', '').strip().lower()
+    to_city = request.args.get('to', '').strip().lower()
+
+    trains = []
+
+    if from_city == "" or to_city == "":
+        return render_template(
+            "browse_trains.html",
+            trains=[],
+            from_city="",
+            to_city=""
+        )
+
+    try:
+        df = pd.read_csv(
+            r"C:\Users\verma\Travel&Tourism\dataset\merged_dataset.csv",
+            low_memory=False
+        )
+
+        df = df[[
+            "trainNumber", "trainName", "route",
+            "runningDays", "trainRoute"
+        ]].copy()
+
+        # CLEAN
+        df["route"] = df["route"].astype(str).str.lower()
+        df["trainName"] = df["trainName"].astype(str).str.title()
+
+        # FILTER
+        filtered = df[
+            df["route"].str.contains(from_city, na=False) &
+            df["route"].str.contains(to_city, na=False)
+        ].copy()
+
+        print("Filtered trains:", len(filtered))
+
+        # IMAGES
+        images = [
+            "images/train_default.jpg",
+            "images/train_default1.jpg",
+            "images/train_default2.jpg",
+            "images/train_default3.jpg"
+        ]
+
+        for _, row in filtered.iterrows():
+
+            # =========================
+            # ✅ PARSE RUNNING DAYS
+            # =========================
+            try:
+                days_dict = ast.literal_eval(str(row["runningDays"]))
+                running_days = [day for day, val in days_dict.items() if val]
+
+                running_days = ", ".join([d.capitalize()[:3] for d in running_days]) if running_days else "Not Available"
+
+            except:
+                running_days = "Not Available"
+
+            # =========================
+            # ✅ PARSE TRAIN ROUTE
+            # =========================
+            try:
+                route_list = ast.literal_eval(str(row["trainRoute"]))
+
+                # FIRST station → departure
+                departure = route_list[0].get("departs", "N/A")
+
+                # LAST station → arrival
+                arrival = route_list[-1].get("arrives", "N/A")
+
+            except:
+                departure = "N/A"
+                arrival = "N/A"
+
+            # =========================
+            # 💰 RANDOM PRICE
+            # =========================
+            price = random.randint(300, 1500)
+
+            trains.append({
+                "number": row.get("trainNumber", "N/A"),
+                "name": row.get("trainName", "Unknown Train"),
+                "route": row.get("route", "").title(),
+                "days": running_days,
+                "departure": departure,
+                "arrival": arrival,
+                "price": price,
+                "image": random.choice(images)
+            })
+
+        return render_template(
+            "browse_trains.html",
+            trains=trains,
+            from_city=from_city,
+            to_city=to_city
+        )
+
+    except Exception as e:
+        return f"ERROR: {str(e)}"
 
 # ---------- LOGIN ---------- #
 from db import get_db_connection
