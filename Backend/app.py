@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import pandas as pd
 import os
 import random
@@ -521,11 +521,14 @@ def login():
         conn.close()
 
         if user:
+            session['username'] = user[1]   # assuming name is 2nd column in users table
             return redirect(url_for('home'))
         else:
             return "❌ Invalid Credentials"
 
     return render_template('login.html')
+
+
 
 
 # ---------- REGISTER ---------- #
@@ -576,6 +579,12 @@ def thankyou():
 @app.route('/test')
 def test():
     return "Working"
+
+# ---------- LOGOUT ---------- #
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('home'))
 
 # ---------------- RUN APP ---------------- #
 if __name__ == '__main__':

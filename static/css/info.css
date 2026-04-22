@@ -212,6 +212,11 @@ body{
     border-right:none;
 }
 
+/* Fix container spacing */
+.hotel-hero .search-container{
+    padding:18px;
+}
+
 .search-item label{
     display:block;
     font-size:16px;
@@ -621,6 +626,11 @@ body{
     border-right:none;
 }
 
+/* Fix container spacing */
+.train-hero .search-container{
+    padding:22px;
+}
+
 /* SMALL TAG (Bus label) */
 .rating-desc{
     background:#e0f2fe;
@@ -638,65 +648,19 @@ body{
     box-shadow:0 12px 30px rgba(0,0,0,0.08);
 }
 
-/* RESPONSIVE */
-@media(max-width:1100px){
-
-.search-grid{
-    grid-template-columns:1fr 1fr;
-}
-
-.hotel-result-card{
-    grid-template-columns:1fr;
-}
-
-.hotel-price{
-    text-align:left;
-}
-
-}
-
-
-
-@media(max-width:700px){
-
-.city-box input{
-    font-size:28px;
-}
-
-.search-btn{
-    width:100%;
-    padding:16px;
-    font-size:22px;
-}
-
-.results-section h2{
-    font-size:30px;
-}
-
-.hotel-name{
-    font-size:26px;
-}
-
-.hotel-title{
-    flex-wrap:wrap;
-}
-
-}
- 
-
 /* WISHLIST CSS */
 
-body{
+.wishlist-page{
     margin:0;
     padding:0;
     font-family:Arial, sans-serif;
-    background:url("../images/wishlist_bg.jpg");
-    background-size: cover;
+    background:url("../images/wishlist_bg.jpg") no-repeat center center fixed;
+    background-size:cover;
 }
 
 .wishlist-header{
     background:none;
-    color:whitesmoke;
+    color: #2D3748;
     text-align:center;
     padding:22px;
     font-size:32px;
@@ -759,3 +723,51 @@ body{
     color:#777;
     padding:80px;
 }
+
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+
+.search-grid{
+    grid-template-columns:1fr 1fr;
+}
+
+.hotel-result-card{
+    grid-template-columns:1fr;
+}
+
+.hotel-price{
+    text-align:left;
+}
+
+}
+
+
+
+@media(max-width:700px){
+
+.city-box input{
+    font-size:28px;
+}
+
+.search-btn{
+    width:100%;
+    padding:16px;
+    font-size:22px;
+}
+
+.results-section h2{
+    font-size:30px;
+}
+
+.hotel-name{
+    font-size:26px;
+}
+
+.hotel-title{
+    flex-wrap:wrap;
+}
+
+}
+ 
+

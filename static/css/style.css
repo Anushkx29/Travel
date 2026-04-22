@@ -63,6 +63,26 @@ body {
     color: #20bf6b;
 }
 
+.navbar a{
+    display:flex;
+    align-items:center;
+    gap:8px;              /* space between icon and text */
+    text-decoration:none;
+    color:white;
+    font-weight:600;
+}
+
+.navbar a i{
+    font-size:16px;
+    color:#22c55e;        /* green accent like your logo */
+}
+
+/* Hover effect */
+.navbar a:hover i{
+    transform:scale(1.1);
+    transition:0.3s;
+}
+
 .book_btn a {
     background-color: #20bf6b;
     border-radius: 30px;
@@ -72,6 +92,10 @@ body {
     padding: 0.5rem 1.2rem;
     border: 2px solid #20bf6b;
     transition: all 300ms cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.book_btn a i{
+   color:white !important;
 }
 
 .book_btn a:hover {

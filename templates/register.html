@@ -12,6 +12,7 @@
 
     <!-- Remix Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- External CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -38,11 +39,11 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto gap-4">
-    <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ url_for('destinations') }}">Destinations</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ url_for('stays') }}">Stays</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ url_for('tours') }}">Tours</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Review us</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}"><i class="fa-solid fa-house"></i>Home</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('destinations') }}"><i class="fa-solid fa-location-dot"></i>Destinations</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('stays') }}"><i class="fa-solid fa-hotel"></i>Stays</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('tours') }}"><i class="fa-solid fa-plane"></i>Tours</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}"><i class="fa-solid fa-star"></i>Review us</a></li>
 </ul>
         </div>
 
