@@ -129,24 +129,28 @@ for root, dirs, files in os.walk(dataset_path):
 # -------------------------------
 all_dfs = []
 places_only = []
+hotel_only = []
 
 # -------- BUS --------
 for file in bus_files:
     df = pd.read_csv(file)
-    df["Category"] = "Bus"
+    df["Category"] = "bus"
     all_dfs.append(df)
 
 # -------- HOTEL --------
 for file in hotel_files:
     df = pd.read_csv(file)
-    df["Category"] = "Hotel"
-    all_dfs.append(df)
+
+    df["Category"] = "hotel"
+
+    all_dfs.append(df)     # for merged dataset
+    hotel_only.append(df)  # for hotel dataset
 
 # -------- PLACE --------
 for file in place_files:
     df = pd.read_csv(file)
 
-    df["Category"] = "Place"
+    df["Category"] = "place"
 
     # Clean city names
     if "City" in df.columns:
@@ -178,7 +182,7 @@ for root, dirs, files in os.walk(dataset_path):
                 else:
                     df = pd.read_csv(full_path)
 
-                df["Category"] = "Train"
+                df["Category"] = "train"
                 all_dfs.append(df)
 
             except Exception as e:
@@ -202,4 +206,13 @@ if places_only:
     places_df.to_csv(places_path, index=False)
     print("🎉 places_dataset.csv created")
 
-print("✅ ALL DONE SUCCESSFULLY")
+    # -------------------------------
+# STEP 6: SAVE HOTELS DATASET
+# -------------------------------
+if hotel_only:
+    hotels_df = pd.concat(hotel_only, ignore_index=True)
+    hotels_path = os.path.join(dataset_path, "hotels_dataset.csv")
+    hotels_df.to_csv(hotels_path, index=False)
+    print("🎉 hotels_dataset.csv created")
+
+print("✅ ALL DONE SUCCESSFULLY") 

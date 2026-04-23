@@ -137,7 +137,7 @@ def browse_stays():
         # LOAD DATASET (28 columns)
         # =========================
         df = pd.read_csv(
-            r"C:\Users\verma\Travel&Tourism\dataset\merged_dataset.csv",
+            r"C:\Users\verma\Travel&Tourism\dataset\hotels_dataset.csv",
             low_memory=False
         )
 
@@ -145,32 +145,31 @@ def browse_stays():
         # SELECT REQUIRED COLUMNS BY NAME
         # =========================
         df = df[[
-            "Type",
-            "Hotel Name",
-            "Rating",
-            "Reviews",
-            "Star Rating",
-            "Location",
-            "Nearest Landmark",
-            "Distance to Landmark",
-            "Price",
-            "Tax"
+        "Category",
+        "Hotel Name",
+        "Rating",
+        "Reviews",
+        "Star Rating",
+        "Location",
+        "Nearest Landmark",
+        "Distance to Landmark",
+        "Price",
+        "Tax"
         ]].copy()
-
         # =========================
         # RENAME COLUMNS
         # =========================
         df.columns = [
-            "type",
-            "hotel_name",
-            "rating",
-            "review",
-            "stars",
-            "location",
-            "landmark",
-            "distance",
-            "price",
-            "tax"
+        "type",   # now mapped from Category
+        "hotel_name",
+        "rating",
+        "review",
+        "stars",
+        "location",
+        "landmark",
+        "distance",
+        "price",
+        "tax"
         ]
 
         # =========================
@@ -301,6 +300,8 @@ def browse_stays():
         return f"ERROR: {str(e)}"
     
 
+    
+
 
     # ---------- BROWSE BUSES ---------- #
 
@@ -324,10 +325,12 @@ def browse_buses():
         # =========================
         # LOAD DATA
         # =========================
-        df = pd.read_csv(
-            r"C:\Users\verma\Travel&Tourism\dataset\merged_dataset.csv",
-            low_memory=False
-        )
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+        file_path = os.path.join(BASE_DIR, "..", "dataset", "merged_dataset.csv")
+
+        df = pd.read_csv(file_path, low_memory=False)
+       
 
         # =========================
         # CLEAN DATA

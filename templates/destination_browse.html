@@ -63,7 +63,7 @@ SEARCH
 
 <div class="info-line">📍 <span>{{ place.City }}</span></div>
 
-<div class="info-line">⭐ <span>{{ place.Ratings }}</span></div>
+<div class="info-line">⭐ <span>{{ place.Ratings if place.Ratings and place.Ratings|string != 'nan' else "N/A" }}</span></div>
 
 <div class="info-line">📏 <span>{{ place.Distance }}</span></div>
 
