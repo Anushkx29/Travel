@@ -648,19 +648,20 @@ body{
     box-shadow:0 12px 30px rgba(0,0,0,0.08);
 }
 
+
 /* WISHLIST CSS */
 
 .wishlist-page{
     margin:0;
     padding:0;
     font-family:Arial, sans-serif;
-    background:url("../images/wishlist_bg.jpg") no-repeat center center fixed;
+    background:url("../images/wishlist_bg2.jpg") no-repeat center center fixed;
     background-size:cover;
 }
 
 .wishlist-header{
     background:none;
-    color: #2D3748;
+    color:#411900;
     text-align:center;
     padding:22px;
     font-size:32px;

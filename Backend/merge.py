@@ -15,12 +15,11 @@ for file in os.listdir(dataset_path):
     if file.endswith(".zip"):
         with zipfile.ZipFile(os.path.join(dataset_path, file), 'r') as zip_ref:
             zip_ref.extractall(dataset_path)
-        print(f"✅ Extracted: {file}")
 
-print("✅ Extraction complete!\n")
+print("✅ Extraction complete!")
 
 # -------------------------------
-# STEP 2: COLLECT FILES (IMPORTANT FIX)
+# STEP 2: COLLECT FILES
 # -------------------------------
 bus_files = []
 hotel_files = []
@@ -29,10 +28,9 @@ train_files = []
 
 for root, dirs, files in os.walk(dataset_path):
     for file in files:
+
         file_lower = file.lower()
         full_path = os.path.join(root, file)
-
-        print("🔍 Found:", file)
 
         if "bus" in file_lower and file.endswith(".csv"):
             bus_files.append(full_path)
@@ -44,20 +42,15 @@ for root, dirs, files in os.walk(dataset_path):
             train_files.append(full_path)
 
         elif file.endswith(".csv") and any(city in file_lower for city in [
-        "bangalore", "chennai", "delhi", "hyderabad", "kolkata", "mumbai"
-]):
-         hotel_files.append(full_path)
-
-
-print("\n📄 Bus Files:", bus_files)
-print("📄 Hotel Files:", hotel_files)
-print("📄 Place Files:", place_files)
-print("📄 Train Files:", train_files)
+            "bangalore", "chennai", "delhi", "hyderabad", "kolkata", "mumbai"
+        ]):
+            hotel_files.append(full_path)
 
 # -------------------------------
-# STEP 3: LOAD ALL FILES
+# STEP 3: LOAD FILES
 # -------------------------------
 all_dfs = []
+places_only = []
 
 # BUS
 for file in bus_files:
@@ -65,7 +58,7 @@ for file in bus_files:
     df["Type"] = "Bus"
     all_dfs.append(df)
 
-# HOTEL (THIS FIXES YOUR ISSUE)
+# HOTEL
 for file in hotel_files:
     df = pd.read_csv(file)
     df["Type"] = "Hotel"
@@ -76,8 +69,9 @@ for file in place_files:
     df = pd.read_csv(file)
     df["Type"] = "Place"
     all_dfs.append(df)
+    places_only.append(df)   # separate save
 
-# TRAIN (THIS FIXES YOUR TRAIN ISSUE)
+# TRAIN
 for file in train_files:
     try:
         if file.endswith(".json"):
@@ -88,20 +82,21 @@ for file in train_files:
         df["Type"] = "Train"
         all_dfs.append(df)
 
-    except Exception as e:
-        print(f"⚠️ Skipping {file} due to error:", e)
-
+    except:
+        pass
 
 # -------------------------------
-# STEP 4: MERGE
+# STEP 4: SAVE MERGED DATASET
 # -------------------------------
 merged_df = pd.concat(all_dfs, ignore_index=True)
+merged_df.to_csv(os.path.join(dataset_path, "merged_dataset.csv"), index=False)
 
 # -------------------------------
-# STEP 5: SAVE
+# STEP 5: SAVE PLACES DATASET
 # -------------------------------
-output_path = os.path.join(dataset_path, "merged_dataset.csv")
-merged_df.to_csv(output_path, index=False)
+if places_only:
+    places_df = pd.concat(places_only, ignore_index=True)
+    places_df.to_csv(os.path.join(dataset_path, "places_dataset.csv"), index=False)
 
-print("\n🎉 SUCCESS: ALL DATA MERGED CORRECTLY!")
-print("📁 Saved at:", output_path)
+print("🎉 merged_dataset.csv created")
+print("🎉 places_dataset.csv created")

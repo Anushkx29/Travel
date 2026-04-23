@@ -498,6 +498,33 @@ def browse_trains():
 
     except Exception as e:
         return f"ERROR: {str(e)}"
+    
+    # ---------- DESTINATION BROWSE CSS ---------- #
+
+places_data = pd.read_csv("../dataset/places_dataset.csv")
+
+@app.route('/destination_browse')
+def destination_browse():
+
+    city = request.args.get('city', '').strip()
+    print("SEARCH =", city)
+
+    df = places_data.copy()
+    print("TOTAL ROWS =", len(df))
+
+    df['City'] = df['City'].astype(str).str.lower().str.strip()
+
+    city = city.lower()
+
+    if city:
+        filtered = df[df['City'].str.contains(city, na=False)]
+        print("FOUND =", len(filtered))
+        places = filtered.to_dict(orient='records')
+    else:
+        print("FIRST OPEN PAGE")
+        places = []   # ✅ no results first time
+
+    return render_template("destination_browse.html", places=places)
 
 # ---------- LOGIN ---------- #
 from db import get_db_connection
