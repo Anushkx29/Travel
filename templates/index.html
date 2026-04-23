@@ -109,7 +109,7 @@
         <span>Travel & Tourism</span>
         <h1 class="pt-3">Explore the Beauty of the Beautiful India</h1>
         <div class="hero-btn pt-5">
-          <a href="#" class=""><i class="ri-send-plane-fill"></i> Explore Now</a>
+          <a href="{{ url_for('destination_browse') }}" class=""><i class="ri-send-plane-fill"></i> Explore Now</a>
         </div>
       </div>
     </div>
@@ -338,7 +338,7 @@
     <div class="row justify-content-center align-items-center">
       <div class="col-xs-12 col-sm-6">
         <div class="">
-          <img src="{{ url_for('static', filename='images/snow-vacation.jpg') }}" class="w-100 rounded" alt="Snow Vacation">
+          <img src="{{ url_for('static', filename='images/beach-vacation.jpg') }}" class="w-100 rounded" alt="Snow Vacation">
         </div>
       </div>
       <div class="col-xs-12 col-sm-6">
@@ -347,9 +347,9 @@
             <strong class="fw-bold">Lost</strong>
           </h2>
           <h3 class="py-3 fw-bold text-dark">Let's Discover The India Together</h3>
-          <p class=" text-secondary pb-4 ps-4 3">Wander through colors, cultures, and countless stories woven across the land. From tranquil hills to lively streets, let every step take you closer to the soul of India.
+          <p class=" text-secondary pb-4 ps-4 3">Wander from golden shores to serene riversides where nature flows in its purest form. From sun-kissed beaches to tranquil waters, let every ripple and wave guide you into moments of peace, adventure, and unforgettable memories.
           </p>
-          <a href="./index.html" class="button_1 main_bg_color">See More</a>
+          <a href="{{ url_for('destination_browse', type='Beaches') }}" class="button_1 main_bg_color">See More</a>
         </div>
       </div>
     </div>
@@ -372,9 +372,9 @@
             <strong class="fw-bold">Lost</strong>
           </h2>
           <h3 class="py-3 fw-bold text-dark">Let's Discover The India Together</h3>
-          <p class=" text-secondary pb-4 ps-4 3">Step into a journey of diverse landscapes, rich cultures, and unforgettable experiences. From mountains to beaches, every path leads to a story worth discovering.
+          <p class=" text-secondary pb-4 ps-4 3">Step into a journey through majestic mountains and breathtaking landscapes, where every trail reveals a new story. From misty hills to serene valleys, discover experiences that inspire, refresh, and stay with you forever.
           </p>
-          <a href="./index.html" class="button_1 main_bg_color">See More</a>
+          <a href="{{ url_for('destination_browse', type='Mountains') }}" class="button_1 main_bg_color">See More</a>
         </div>
       </div>
       <div class="col-xs-12 col-sm-6">
@@ -417,8 +417,8 @@
   <!-- sixth section -->
   <div class="parallax_two opacity-100">
     <div class="container text-center">
-      <h1 class="display-1 fw-bold text-white pb-5">Places To Visit</h1>
-      <a href="./index.html" class="button_1 main_bg_color">Gallery</a>
+      <h1 class="display-1 fw-bold text-white pb-5">Searching Places To Visit?</h1>
+      <a href="{{ url_for('destinations') }}" class="button_1 main_bg_color"><i class="ri-rocket-2-fill" style="display:inline-block; transform: rotate(20deg);"></i> Let’s Go</a>
     </div>
   </div>
   <!-- /sixth section -->

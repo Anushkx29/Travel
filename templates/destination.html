@@ -105,7 +105,7 @@
         <div>
             <img src="{{ url_for('static', filename='images/icebergs.jpg') }}" class="w-100" alt="">
         </div>
-        <div class="position-absolute start-50 translate-middle text-center" style="top: 63%;">
+        <div class="position-absolute start-50 translate-middle text-center" style="top: 55%;">
     <h2 class="display-1 fw-bold text-white">Destinations</h2>
             <p class="h4 text-white">Explore Tours By Destinations</p>
             <div class="hero-btn pt-5">
@@ -136,7 +136,7 @@
                     <div class="card-content">
                         <h2>Mountains</h2>
                         <p>India is home to some of the world's most stunning mountain destinations. Explore the snowy peaks of Manali, the scenic valleys of Shimla, the mystic hills of Darjeeling, the adventure trails of Uttarakhand and the dramatic landscapes of Ladakh and many more.</p>
-                        <a href="#" class="card_btn">Find out more <i class="fa fa-arrow-right"></i></a>
+                        <a href="{{ url_for('destination_browse', type='Mountains') }}" class="card_btn">Find out more <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="dest_card">
@@ -144,7 +144,7 @@
                     <div class="card-content">
                         <h2>Monuments</h2>
                         <p>India is a land of rich history and magnificent architecture. From the iconic Taj Mahal in Agra to the grand forts of Rajasthan, the ancient temples of Hampi and the majestic ruins of Vijayanagara and many more— every monument tells a tale of India's glorious past.</p>
-                        <a href="#" class="card_btn">Find out more <i class="fa fa-arrow-right"></i></a>
+                        <a href="{{ url_for('destination_browse', type='Monuments') }}" class="card_btn">Find out more <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="dest_card">
@@ -152,7 +152,7 @@
                     <div class="card-content">
                         <h2>Beaches</h2>
                         <p>Sun, sand and sea — India's beaches have it all. From the golden sands of Goa to the crystal clear waters of Andaman Islands, the rocky beaches of Kerala to the beautiful Marina Beach of Chennai and the serene coastline of Odisha — every beach has its own unique charm.</p>
-                        <a href="#" class="card_btn">Find out more <i class="fa fa-arrow-right"></i></a>
+                        <a href="{{ url_for('destination_browse', type='Beaches') }}" class="card_btn">Find out more <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="dest_card">
@@ -160,7 +160,7 @@
                     <div class="card-content">
                         <h2>Holy Places</h2>
                         <p>India is a land of faith and devotion. From the holy ghats of Varanasi to the golden temples of Amritsar, the ancient shrines of Tirupati to the sacred Char Dham of Uttarakhand and the caves of Ajmer — every holy place offers a unique spiritual experience.</p>
-                        <a href="#" class="card_btn">Find out more <i class="fa fa-arrow-right"></i></a>
+                        <a href="{{ url_for('destination_browse', type='Holy Places') }}" class="card_btn">Find out more <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>

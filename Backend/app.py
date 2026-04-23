@@ -499,32 +499,50 @@ def browse_trains():
     except Exception as e:
         return f"ERROR: {str(e)}"
     
-    # ---------- DESTINATION BROWSE CSS ---------- #
+# ---------- LOAD PLACES DATASET ---------- #
+places_data = pd.read_csv("../dataset/places_dataset.csv", low_memory=False)
 
-places_data = pd.read_csv("../dataset/places_dataset.csv")
+# ----------------- DESTINATION BROWSE --------------------#
 
 @app.route('/destination_browse')
 def destination_browse():
 
-    city = request.args.get('city', '').strip()
-    print("SEARCH =", city)
+    city = request.args.get('city', '').strip().lower()
+    selected_type = request.args.get('type', '').strip()
 
     df = places_data.copy()
-    print("TOTAL ROWS =", len(df))
 
-    df['City'] = df['City'].astype(str).str.lower().str.strip()
+    # CLEAN DATA
+    df['City'] = df['City'].astype(str).str.strip().str.lower()
+    df['Type'] = df['Type'].astype(str).str.strip()
 
-    city = city.lower()
-
+    # FILTER BY CITY
     if city:
-        filtered = df[df['City'].str.contains(city, na=False)]
-        print("FOUND =", len(filtered))
-        places = filtered.to_dict(orient='records')
-    else:
-        print("FIRST OPEN PAGE")
-        places = []   # ✅ no results first time
+        df = df[df['City'].str.contains(city, na=False)]
 
-    return render_template("destination_browse.html", places=places)
+    # FILTER BY TYPE
+    if selected_type:
+        df = df[df['Type'] == selected_type]
+
+    # FIRST LOAD
+    if not city and not selected_type:
+        places = []
+    else:
+        places = df.to_dict(orient='records')
+
+    # 👉 CATEGORY PAGE
+    if selected_type:
+        return render_template(
+            "destination_type.html",
+            places=places,
+            selected_type=selected_type
+        )
+
+    # 👉 SEARCH PAGE
+    return render_template(
+        "destination_browse.html",
+        places=places
+    )
 
 # ---------- LOGIN ---------- #
 from db import get_db_connection
