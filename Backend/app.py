@@ -282,7 +282,7 @@ def browse_stays():
                 "rating_description": get_rating_desc(row["rating"]),
                 "location": row["location"],
                 "price": row["price"],
-                "reviews": int(row["review"]) if str(row["review"]).isdigit() else 0,
+                "reviews": int(float(row["review"])) if pd.notna(row["review"]) else 0,
                 "star_rating": row["stars"],
                 "nearest_landmark": row["landmark"] if pd.notna(row["landmark"]) else "",
                 "distance": "" if pd.isna(row["distance"]) or str(row["distance"]).strip().lower() == "nan" else row["distance"],
