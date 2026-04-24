@@ -433,3 +433,102 @@ body{
     color:#6b7280;
     font-size:18px;
 }
+
+/* ========================= */
+/* PLACE DETAILS PAGE */
+/* ========================= */
+
+/* ========================= */
+/* SECTION */
+/* ========================= */
+.details-section{
+    width:92%;
+    max-width:1400px;
+    margin:50px auto;
+}
+
+/* Optional heading */
+.page-title{
+    font-size:36px;
+    margin-bottom:30px;
+    color:#111827;
+}
+
+/* ========================= */
+/* CARD LIST */
+/* ========================= */
+.details-card{
+    background:#fff;
+    border:1px solid #dbeafe;
+    border-radius:18px;
+    display:grid;
+    grid-template-columns:300px 1fr;
+    gap:25px;
+    padding:25px;
+    margin-bottom:25px;   /* 🔥 spacing between cards */
+    box-shadow:0 6px 20px rgba(0,0,0,0.06);
+    transition:0.3s ease;
+}
+
+/* Hover effect */
+.details-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 30px rgba(0,0,0,0.1);
+}
+
+/* ========================= */
+/* IMAGE */
+/* ========================= */
+.details-image img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    border-radius:14px;
+}
+
+/* ========================= */
+/* CONTENT */
+/* ========================= */
+.place-title{
+    font-size:26px;
+    font-weight:700;
+    color:#111827;
+    margin-bottom:12px;
+}
+
+.place-meta{
+    font-size:16px;
+    color:#2563eb;
+    margin-bottom:6px;
+    font-weight:500;
+}
+
+.place-desc{
+    font-size:16px;
+    color:#374151;
+    line-height:1.6;
+    margin-top:12px;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+@media (max-width:900px){
+    .details-card{
+        grid-template-columns:1fr;
+    }
+
+    .details-image img{
+        height:220px;
+    }
+}
+
+@media (max-width:500px){
+    .place-title{
+        font-size:22px;
+    }
+
+    .place-desc{
+        font-size:14px;
+    }
+}

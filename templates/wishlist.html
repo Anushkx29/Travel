@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
-<body class="wishlist-page"></body>
+
+<body class="wishlist-page">
 
 <div class="wishlist-header">
     <i class="fa-solid fa-heart"></i> My Wishlist
@@ -36,10 +37,24 @@ function loadWishlist(){
 
         area.innerHTML += `
         <div class="wish-card">
-            <img src="${item.image}">
+            <img src="${item.image}" alt="${item.name}">
+            
             <div class="wish-content">
                 <h3>${item.name}</h3>
-                <button onclick="removeItem(${index})">Remove</button>
+
+                <div class="wish-buttons">
+
+                    <!-- VIEW MORE BUTTON -->
+                    <button onclick="viewPlace(\`${item.name}\`, \`${item.image}\`)">
+                        View More
+                    </button>
+
+                    <!-- REMOVE BUTTON -->
+                    <button onclick="removeItem(${index})" class="remove-btn">
+                        Remove
+                    </button>
+
+                </div>
             </div>
         </div>
         `;
@@ -50,6 +65,10 @@ function removeItem(index){
     wishlist.splice(index,1);
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
     loadWishlist();
+}
+
+function viewPlace(name, image){
+    window.location.href = `/place_details?name=${encodeURIComponent(name)}&image=${encodeURIComponent(image)}`;
 }
 
 loadWishlist();

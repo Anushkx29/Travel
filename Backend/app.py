@@ -300,8 +300,70 @@ def browse_stays():
         return f"ERROR: {str(e)}"
     
 
-    
+    #----------WISHLIST--------------#
 
+import os
+import pandas as pd
+import re
+from flask import request, render_template
+
+@app.route('/place_details')
+def place_details():
+
+    name = request.args.get('name', '').strip().lower()
+    image = request.args.get('image', '')
+
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(BASE_DIR, "..", "dataset", "places_dataset.csv")
+
+    # ✅ READ CSV PROPERLY
+    df = pd.read_csv(file_path, encoding="utf-8", engine="python")
+
+    # -----------------------------
+    # ✅ CLEAN DATA
+    # -----------------------------
+    df["Place"] = df["Place"].astype(str).str.lower().str.strip()
+    df["City"] = df["City"].astype(str).str.lower().str.strip()
+
+    # 🚀 REMOVE NUMBERING (IMPORTANT)
+    df["Place"] = df["Place"].apply(lambda x: re.sub(r'^\d+\.\s*', '', x))
+
+    # clean input
+    name = " ".join(name.split())
+
+    # -----------------------------
+    # 🔹 CASE 1: EXACT PLACE MATCH
+    # -----------------------------
+    place_match = df[df["Place"] == name]
+
+    if not place_match.empty:
+        data = place_match.to_dict(orient="records")
+
+    else:
+        # -----------------------------
+        # 🔹 CASE 2: CITY MATCH
+        # -----------------------------
+        city_match = df[df["City"] == name]
+
+        if not city_match.empty:
+            data = city_match.to_dict(orient="records")
+        else:
+            return "Place not found"
+
+    # -----------------------------
+    # ✅ REMOVE DUPLICATES
+    # -----------------------------
+    data = pd.DataFrame(data).drop_duplicates(subset=["Place"]).to_dict(orient="records")
+
+    # -----------------------------
+    # ✅ IMAGE FIX
+    # -----------------------------
+    for row in data:
+        row["image"] = image if image else "/static/images/default_place.jpg"
+        row["Place"] = str(row["Place"]).title()
+        row["City"] = str(row["City"]).upper()
+
+    return render_template("place_details.html", places=data)
 
     # ---------- BROWSE BUSES ---------- #
 

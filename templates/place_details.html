@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Place Details</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/destination.css') }}">
+
+</head>
+
+<body>
+
+<section class="details-section">
+
+    <!-- LOOP THROUGH ALL PLACES -->
+    {% for place in places %}
+
+    <div class="details-card">
+
+        <!-- IMAGE -->
+        <div class="details-image">
+            <img src="{{ request.args.get('image') }}">
+        </div>
+
+        <!-- CONTENT -->
+        <div class="details-content">
+
+            <h1 class="place-title">
+                {{ loop.index }}. {{ place.Place }}
+            </h1>
+
+            <p class="place-meta">
+                📍 <b>City:</b> {{ place.City }}
+            </p>
+
+            <p class="place-meta">
+                🏷️ <b>Type:</b> {{ place.Type }}
+            </p>
+
+            <p class="place-desc">
+                {{ place.Place_desc }}
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</section>
+
+</body>
+</html>
